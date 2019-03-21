@@ -59,13 +59,20 @@ public class MathFx {
     }
     
     public static List<Map.Entry<String, Double>> sortMapDouble(
-            Map<String, Double> map) {
+            Map<String, Double> map, String order) {
         Set<Map.Entry<String, Double>> set = map.entrySet();
         List<Map.Entry<String, Double>> list = new ArrayList<Map.Entry<
                 String, Double>>(set);
         Collections.sort(list, new Comparator<Map.Entry<String, Double>>(){
             public int compare(Map.Entry<String, Double> o1, 
                     Map.Entry<String, Double> o2) {
+                switch (order) {
+                    case "DESC":
+                        return (o2.getValue()).compareTo(o1.getValue());
+                    
+                    case "ASC":
+                        return (o1.getValue()).compareTo(o2.getValue());
+                }
                 return (o2.getValue()).compareTo(o1.getValue());
             }
         });

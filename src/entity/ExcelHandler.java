@@ -16,6 +16,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 
+import entity.Data;
+
 /**
  *
  * @author Azhary Arliansyah
@@ -40,11 +42,13 @@ public class ExcelHandler {
         if (rowIt.hasNext()) {
             rowIt.next();
         }
+        if (rowIt.hasNext()) {
+            rowIt.next();
+        }
         
         while (rowIt.hasNext()) {
             Row row = rowIt.next();
-            result.add(new Data(row.getCell(0).getStringCellValue(), 
-                    (int)row.getCell(1).getNumericCellValue(), 
+            result.add(new Data(row.getCell(1).getStringCellValue(), 
                     (int)row.getCell(2).getNumericCellValue(), 
                     (int)row.getCell(3).getNumericCellValue(), 
                     (int)row.getCell(4).getNumericCellValue(), 
@@ -54,7 +58,8 @@ public class ExcelHandler {
                     (int)row.getCell(8).getNumericCellValue(), 
                     (int)row.getCell(9).getNumericCellValue(), 
                     (int)row.getCell(10).getNumericCellValue(), 
-                    (int)row.getCell(11).getNumericCellValue()));
+                    (int)row.getCell(11).getNumericCellValue(), 
+                    (int)row.getCell(12).getNumericCellValue()));
         }
         
         return result;
@@ -73,11 +78,13 @@ public class ExcelHandler {
         if (rowIt.hasNext()) {
             rowIt.next();
         }
+        if (rowIt.hasNext()) {
+            rowIt.next();
+        }
         
         while (rowIt.hasNext()) {
             Row row = rowIt.next();
-            result.add(new Data(row.getCell(0).getStringCellValue(), 
-                    (int)row.getCell(1).getNumericCellValue(), 
+            result.add(new Data(row.getCell(1).getStringCellValue(), 
                     (int)row.getCell(2).getNumericCellValue(), 
                     (int)row.getCell(3).getNumericCellValue(), 
                     (int)row.getCell(4).getNumericCellValue(), 
@@ -87,7 +94,8 @@ public class ExcelHandler {
                     (int)row.getCell(8).getNumericCellValue(), 
                     (int)row.getCell(9).getNumericCellValue(), 
                     (int)row.getCell(10).getNumericCellValue(), 
-                    (int)row.getCell(11).getNumericCellValue()));
+                    (int)row.getCell(11).getNumericCellValue(), 
+                    (int)row.getCell(12).getNumericCellValue()));
         }
         
         return result;

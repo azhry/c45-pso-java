@@ -27,18 +27,18 @@ public class Data {
     public Data(String nama, int pendidikan, int pekerjaan, int penghasilan, 
             int ptr, int ventilasi, int pencahayaan, int kelembaban, 
             int atap, int dinding, int lantai, int ispa) {
-        this.setNama(nama);
-        this.setPendidikan(pendidikan);
-        this.setPekerjaan(pekerjaan);
-        this.setPenghasilan(penghasilan);
-        this.setPtr(ptr);
-        this.setVentilasi(ventilasi);
-        this.setPencahayaan(pencahayaan);
-        this.setKelembaban(kelembaban);
-        this.setAtap(atap);
-        this.setDinding(dinding);
-        this.setLantai(lantai);
-        this.setIspa(ispa);
+        this.nama = nama;
+        this.pendidikan = pendidikan;
+        this.pekerjaan = pekerjaan;
+        this.penghasilan = penghasilan;
+        this.ptr = ptr;
+        this.ventilasi = ventilasi;
+        this.pencahayaan = pencahayaan;
+        this.kelembaban = kelembaban;
+        this.atap = atap;
+        this.dinding = dinding;
+        this.lantai = lantai;
+        this.ispa = ispa;
     }
     
     public String getNama() {
