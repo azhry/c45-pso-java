@@ -83,6 +83,21 @@ public class C45 {
         return this.traverse(this.tree, data);
     }
     
+    public List<Boolean> predicts(List<Data> data) {
+        List<Boolean> correctList = new ArrayList<>();
+        int dataSize = data.size();
+        for (int i = 0; i < dataSize; i++) {
+            correctList.add(this.predict(data.get(i)));
+        }
+        return correctList;
+    }
+    
+    public double score(List<Data> data) {
+        List<Boolean> correctList = this.predicts(data);
+        return (double)MathFx.countBooleanFrequency(correctList, true) 
+                / (double)data.size();
+    }
+    
     private boolean traverse(Node node, Data data) {
         if (node != null) {
             Type t = node.getType();
@@ -360,26 +375,31 @@ public class C45 {
         for (int i = 0; i < data.size(); i++) {
             Data row = data.get(i);
             int label = row.getIspa();
-            this.incrementDistribution(valueDistribution, label, "pendidikan", 
-                    row.getPendidikan());
-            this.incrementDistribution(valueDistribution, label, "pekerjaan", 
-                    row.getPekerjaan());
-            this.incrementDistribution(valueDistribution, label, "penghasilan", 
-                    row.getPenghasilan());
-            this.incrementDistribution(valueDistribution, label, "ptr", 
-                    row.getPtr());
-            this.incrementDistribution(valueDistribution, label, "ventilasi", 
-                    row.getVentilasi());
-            this.incrementDistribution(valueDistribution, label, "pencahayaan", 
-                    row.getPencahayaan());
-            this.incrementDistribution(valueDistribution, label, "kelembaban", 
-                    row.getKelembaban());
-            this.incrementDistribution(valueDistribution, label, "lantai", 
-                    row.getLantai());
-            this.incrementDistribution(valueDistribution, label, "dinding", 
-                    row.getDinding());
-            this.incrementDistribution(valueDistribution, label, "atap", 
-                    row.getAtap());
+            for (String attr : this.attributes) {
+                this.incrementDistribution(valueDistribution, label, attr, 
+                        (Integer)Reflector.callUserFunc(Data.class, row, 
+                                "get" + StringUtils.capitalize(attr)));
+            }
+//            this.incrementDistribution(valueDistribution, label, "pendidikan", 
+//                    row.getPendidikan());
+//            this.incrementDistribution(valueDistribution, label, "pekerjaan", 
+//                    row.getPekerjaan());
+//            this.incrementDistribution(valueDistribution, label, "penghasilan", 
+//                    row.getPenghasilan());
+//            this.incrementDistribution(valueDistribution, label, "ptr", 
+//                    row.getPtr());
+//            this.incrementDistribution(valueDistribution, label, "ventilasi", 
+//                    row.getVentilasi());
+//            this.incrementDistribution(valueDistribution, label, "pencahayaan", 
+//                    row.getPencahayaan());
+//            this.incrementDistribution(valueDistribution, label, "kelembaban", 
+//                    row.getKelembaban());
+//            this.incrementDistribution(valueDistribution, label, "lantai", 
+//                    row.getLantai());
+//            this.incrementDistribution(valueDistribution, label, "dinding", 
+//                    row.getDinding());
+//            this.incrementDistribution(valueDistribution, label, "atap", 
+//                    row.getAtap());
         }
         
         return valueDistribution;

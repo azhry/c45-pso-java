@@ -30,16 +30,7 @@ public class C45PSO {
             C45 clf = new C45();
             clf.fit(data);
 //            clf.showTree();
-            int t = 0, f = 0;
-            for (Data row : data) {
-                boolean res = clf.predict(row);
-                if (res) {
-                    t++;
-                } else {
-                    f++;
-                }
-            }
-            System.out.println(t + " <> " + f);
+            System.out.println(clf.score(data));
         } catch (IOException ex) {
             Logger.getLogger(C45PSO.class.getName()).log(Level.SEVERE, 
                     null, ex);

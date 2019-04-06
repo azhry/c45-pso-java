@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -18,6 +19,16 @@ import java.util.Set;
  * @author Azhary Arliansyah
  */
 public class MathFx {
+    
+    public static double randUniform(int n) {
+        return Math.random() * n;
+    }
+    
+    public static int randInt(int range) {
+        Random rand = new Random();
+        return rand.nextInt(range + 1);
+    }
+    
     public static Double euclideanDistance(List<Integer> x1, 
             List<Integer> x2) {
         Double result = 0.00;
@@ -96,5 +107,9 @@ public class MathFx {
             total += x;
         }
         return total;
+    }
+    
+    public static int countBooleanFrequency(List<Boolean> data, boolean e) {
+        return Collections.frequency(data, e);
     }
 }
