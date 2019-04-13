@@ -11,6 +11,12 @@ package entity;
  */
 public class Data {
     
+    public static final String[] FEATURES = new String[] {
+        "pendidikan", "pekerjaan", "penghasilan", "ptr", "ventilasi", 
+        "pencahayaan", "kelembaban", "lantai", "dinding", "atap"
+    };
+    public static final String LABEL = "ispa";
+    
     private String nama;
     private int pendidikan;
     private int pekerjaan;

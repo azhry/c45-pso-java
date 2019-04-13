@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package control;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +19,10 @@ import java.util.Set;
  * @author Azhary Arliansyah
  */
 public class MathFx {
+    
+    public static int sumMap(Map<String, Integer> map) {
+        return map.values().stream().mapToInt(x -> x).sum();
+    }
     
     public static double randUniform(int n) {
         return Math.random() * n;

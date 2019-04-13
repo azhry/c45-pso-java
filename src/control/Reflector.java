@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package control;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

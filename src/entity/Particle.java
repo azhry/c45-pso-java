@@ -5,6 +5,8 @@
  */
 package entity;
 
+import control.MathFx;
+import control.C45;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class Particle implements Comparable {
     private Double inertiaWeight;
     private Double best;
     private Double currentBest;
+    private List<String> selectedFeatures = new ArrayList<>();
+    private C45 clf = new C45();
     
     public Particle(int dimensions) {
         this.initializePosition(dimensions);
@@ -67,14 +71,29 @@ public class Particle implements Comparable {
     }
     
     public double calculateBest(List<Data> train, List<Data> test) {
-        C45 clf = new C45();
-        clf.fit(train);
-        this.best = clf.score(test);
+        this.selectedFeatures = this.getSelectedFeatures();
+        this.clf = new C45(this.selectedFeatures.toArray(new String[0]));
+        this.clf.fit(train);
+        this.best = this.clf.score(test);
         return this.best;
+    }
+    
+    public List<String> getSelectedFeatures() {
+        List<String> selectedAttributes = new ArrayList<>();
+        for (int i = 0; i < this.position.size(); i++) {
+            if (position.get(i) == 1) {
+                selectedAttributes.add(Data.FEATURES[i]);
+            }
+        }
+        return selectedAttributes;
     }
     
     public double getBest() {
         return this.best;
+    }
+    
+    public C45 getClf() {
+        return this.clf;
     }
     
     public List<Integer> getPosition() {

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity;
+package control;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +17,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 
 import entity.Data;
+import entity.Data;
+import java.io.FileOutputStream;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.poi.ss.usermodel.Cell;
 
 /**
  *
@@ -28,6 +35,40 @@ public class ExcelHandler {
     
     public ExcelHandler() {
         
+    }
+    
+    public void write(String path, Map<Integer, Object[]> data) {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("Experiment");
+        
+        Set<Integer> keyset = data.keySet();
+        int rownum = 0;
+        for (int key : keyset) {
+            Row row = sheet.createRow(rownum++);
+            Object[] objArr = data.get(key);
+            int cellnum = 0;
+            for (Object obj : objArr) {
+                Cell cell = row.createCell(cellnum++);
+                if (obj instanceof String) {
+                   cell.setCellValue((String)obj); 
+                } else if (obj instanceof Integer) {
+                   cell.setCellValue((Integer)obj); 
+                } else if (obj instanceof Double) {
+                   cell.setCellValue((Double)obj);
+                }
+            }
+        }
+        
+        try {
+            FileOutputStream out = new FileOutputStream(
+                    new File(baseDir + path));
+            workbook.write(out);
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ExcelHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ExcelHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public List<Data> read(String path, int sheetIndex)

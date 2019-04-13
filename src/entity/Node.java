@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class Node {
     
-    enum Type {
+    public enum Type {
         ROOT, BRANCH, LEAF
     }
     

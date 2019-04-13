@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package control;
 
+import entity.Data;
+import entity.Node;
 import entity.Node.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,10 +24,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class C45 {
     
-    private final String[] attributes = new String[] {
-        "pendidikan", "pekerjaan", "penghasilan", "ptr", "ventilasi", 
-        "pencahayaan", "kelembaban", "lantai", "dinding", "atap"
-    };
+    private String[] attributes = Data.FEATURES;
     
     private Map<Integer, Integer> classDistribution;
     private List<Data> dataList;
@@ -35,6 +34,11 @@ public class C45 {
     
     public C45() {
         this.classDistribution = new HashMap<>();
+    }
+    
+    public C45(String[] selectedAttributes) {
+        this.classDistribution = new HashMap<>();
+        this.attributes = selectedAttributes;
     }
     
     public void fit(List<Data> data) {
@@ -83,6 +87,10 @@ public class C45 {
         return this.traverse(this.tree, data);
     }
     
+    public int predictLabel(Data data) {
+        return this.traverseLabel(this.tree, data);
+    }
+    
     public List<Boolean> predicts(List<Data> data) {
         List<Boolean> correctList = new ArrayList<>();
         int dataSize = data.size();
@@ -110,9 +118,13 @@ public class C45 {
                             "get" + StringUtils.capitalize(attr));
                     Map<Integer, Node> childs = node.getChilds();
                     Node childNode = childs.get(attrValue);
+                    if (childNode == null) {
+                        return data.getIspa() == 1;
+                    }
+                    
                     if (childNode.getAttribute() == null) {
                         if (childNode.getLabel() == null) {
-                            return false;
+                            return data.getIspa() == 1;
                         }
                         return data.getIspa() == childNode.getLabel();
                     }
@@ -125,7 +137,40 @@ public class C45 {
             System.out.println("The tree has not been planted");
         }
         
-        return false;
+        return data.getIspa() == 1;
+    }
+    
+    private int traverseLabel(Node node, Data data) {
+        if (node != null) {
+            Type t = node.getType();
+            switch (t) {
+                case ROOT:
+                case BRANCH:
+                    String attr = node.getAttribute();
+                    Integer attrValue = (Integer)Reflector.callUserFunc(
+                            Data.class, data, 
+                            "get" + StringUtils.capitalize(attr));
+                    Map<Integer, Node> childs = node.getChilds();
+                    Node childNode = childs.get(attrValue);
+                    if (childNode == null) {
+                        return 1;
+                    }
+                    if (childNode.getAttribute() == null) {
+                        if (childNode.getLabel() == null) {
+                            return 1;
+                        }
+                        return childNode.getLabel();
+                    }
+                    return this.traverseLabel(childNode, data);
+                    
+                case LEAF:
+                    return node.getLabel();
+            }
+        } else {
+            System.out.println("The tree has not been planted");
+        }
+        
+        return 1;
     }
     
     private void buildTree(List<Data> data, Node parent, Integer level) {
