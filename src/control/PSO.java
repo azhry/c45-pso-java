@@ -43,18 +43,18 @@ public class PSO {
     
     public Particle exec(List<Data> train, List<Data> test) {
         for (int i = 0; i < this.numIteration; i++) {
-//            System.out.println("ITERATION: " + (i + 1));
+            System.out.println("ITERATION: " + (i + 1));
             for (int j = 0; j < this.populationSize; j++) {
                 this.particles.get(j).calculateBest(train, test);
                 this.particles.get(j).tentMap();
-//                System.out.println("\tPARTICLE " + (j + 1) + ": " + 
-//                        this.particles.get(j).getBest());
+                System.out.println("\tPARTICLE " + (j + 1) + ": " + 
+                        this.particles.get(j).getBest());
             }
             Collections.sort(this.particles);
             this.iterationBest.add(this.particles.get(0));
             
-//            System.out.println("\tBEST PARTICLE: " + 
-//                    this.particles.get(0).getBest());
+            System.out.println("\tBEST PARTICLE: " + 
+                    this.particles.get(0).getBest());
             
             if (this.particles.get(0).getBest() > this.target) {
                 return this.particles.get(0);

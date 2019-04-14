@@ -53,9 +53,9 @@ public class SplitValidator {
                 Data row = splitData.get(i);
                 int cls = (Integer)Reflector.callUserFunc(Data.class, 
                         row, "get" + StringUtils.capitalize(Data.LABEL));
-                System.out.println(currentDist.get(cls) + "::" + 
-                        distPercentage.get(cls) * 
-                                this.classDistribution.get(cls));
+//                System.out.println(currentDist.get(cls) + "::" + 
+//                        distPercentage.get(cls) * 
+//                                this.classDistribution.get(cls));
                 if (currentDist.containsKey(cls) && currentDist.get(cls) >= 
                         distPercentage.get(cls) * 
                         this.classDistribution.get(cls)) {
