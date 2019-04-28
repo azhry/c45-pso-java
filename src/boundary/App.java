@@ -7,23 +7,20 @@ package boundary;
 
 import control.C45;
 import control.ConfusionMatrix;
-import entity.Data;
 import control.ExcelHandler;
 import control.PSO;
 import entity.Particle;
 import control.Reflector;
 import control.SplitValidator;
+import entity.Data;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.lang3.StringUtils;
@@ -35,6 +32,9 @@ import org.apache.commons.lang3.StringUtils;
 public class App extends javax.swing.JFrame {
     
     private List<entity.Data> data = new ArrayList<>();
+    private boolean analyzed = false;
+    private C45 trainedC45 = null;
+    private C45 trainedPSOC45 = null;
     
     /**
      * Creates new form App
@@ -65,7 +65,6 @@ public class App extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         tabel_data = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         nutritionalStatusTable = new javax.swing.JTable();
         buton_data = new javax.swing.JPanel();
@@ -102,8 +101,35 @@ public class App extends javax.swing.JFrame {
         jScrollPane8 = new javax.swing.JScrollPane();
         cm_PSOC45 = new javax.swing.JTable();
         hasilText = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        classifyButton = new javax.swing.JButton();
+        lantaiTextField = new javax.swing.JTextField();
+        kelembabanTextField = new javax.swing.JTextField();
+        pencahayaanTextField = new javax.swing.JTextField();
+        ventilasiTextField = new javax.swing.JTextField();
+        ptrTextField = new javax.swing.JTextField();
+        penghasilanTextField = new javax.swing.JTextField();
+        pekerjaanTextField = new javax.swing.JTextField();
+        pendidikanTextField = new javax.swing.JTextField();
+        namaTextField = new javax.swing.JTextField();
+        dindingTextField = new javax.swing.JTextField();
+        atapTextField = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        classifiedLabelText = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(723, 850));
+
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(1879, 1100));
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 48)); // NOI18N
         jLabel3.setText("Optimasi C4.5");
@@ -149,14 +175,13 @@ public class App extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addComponent(jLabel5))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(297, Short.MAX_VALUE))
+                .addContainerGap(525, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Home", home);
 
         dashboard.setLayout(new javax.swing.BoxLayout(dashboard, javax.swing.BoxLayout.LINE_AXIS));
 
-        Data.setPreferredSize(new java.awt.Dimension(250, 541));
         Data.setLayout(new javax.swing.BoxLayout(Data, javax.swing.BoxLayout.PAGE_AXIS));
 
         tittle_data.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -195,16 +220,13 @@ public class App extends javax.swing.JFrame {
 
         Data.add(tittle_data);
 
-        tabel_data.setPreferredSize(new java.awt.Dimension(700, 166));
+        tabel_data.setPreferredSize(new java.awt.Dimension(700, 70));
         tabel_data.setLayout(new java.awt.BorderLayout());
-
-        jScrollPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        tabel_data.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(471, 500));
 
         nutritionalStatusTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -229,10 +251,8 @@ public class App extends javax.swing.JFrame {
 
         tabel_data.add(jScrollPane1, java.awt.BorderLayout.PAGE_START);
 
-        Data.add(tabel_data);
-
         buton_data.setMaximumSize(new java.awt.Dimension(2147483647, 50));
-        buton_data.setPreferredSize(new java.awt.Dimension(211, 50));
+        buton_data.setPreferredSize(new java.awt.Dimension(211, 20));
         buton_data.setLayout(new java.awt.BorderLayout());
 
         jButton1.setText("Muat Data");
@@ -241,13 +261,17 @@ public class App extends javax.swing.JFrame {
                 loadData(evt);
             }
         });
-        buton_data.add(jButton1, java.awt.BorderLayout.CENTER);
+        buton_data.add(jButton1, java.awt.BorderLayout.PAGE_START);
 
-        Data.add(buton_data);
+        tabel_data.add(buton_data, java.awt.BorderLayout.CENTER);
+
+        Data.add(tabel_data);
 
         dashboard.add(Data);
 
         jTabbedPane1.addTab("Dashboard", dashboard);
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(1874, 1000));
 
         splitRatioTextField.setText("0.7");
 
@@ -448,33 +472,107 @@ public class App extends javax.swing.JFrame {
 
         Hasil1.add(jPanel10, java.awt.BorderLayout.CENTER);
 
+        jLabel16.setText("Nama");
+
+        classifyButton.setText("Classify");
+        classifyButton.setPreferredSize(null);
+        classifyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classifyButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setText("Pendidikan");
+        jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        jLabel20.setText("Pekerjaan");
+
+        jLabel22.setText("Penghasilan");
+
+        jLabel23.setText("PTR");
+
+        jLabel24.setText("Ventilasi");
+
+        jLabel25.setText("Pencahayaan");
+
+        jLabel26.setText("Kelembaban");
+
+        jLabel27.setText("Lantai");
+
+        jLabel28.setText("Dinding");
+
+        jLabel29.setText("Atap");
+
+        classifiedLabelText.setText("LABEL");
+        classifiedLabelText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(analyzeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(splitRatioTextField)
-                    .addComponent(numPopulationTextField)
-                    .addComponent(numIterationTextField)
-                    .addComponent(c1TextField)
-                    .addComponent(c2TextField)
-                    .addComponent(targetTextField))
-                .addGap(1577, 1577, 1577))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addComponent(hasilText)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel15))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(analyzeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(splitRatioTextField)
+                            .addComponent(numPopulationTextField)
+                            .addComponent(numIterationTextField)
+                            .addComponent(c1TextField)
+                            .addComponent(c2TextField)
+                            .addComponent(targetTextField))
+                        .addGap(1577, 1577, 1577))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel25)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel22)
+                                    .addComponent(jLabel26)
+                                    .addComponent(jLabel27)
+                                    .addComponent(jLabel28)
+                                    .addComponent(jLabel29)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel20)
+                                    .addComponent(jLabel23)
+                                    .addComponent(jLabel24))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(lantaiTextField)
+                                            .addComponent(kelembabanTextField)
+                                            .addComponent(pencahayaanTextField)
+                                            .addComponent(ventilasiTextField)
+                                            .addComponent(ptrTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(penghasilanTextField)
+                                            .addComponent(pekerjaanTextField)
+                                            .addComponent(pendidikanTextField)
+                                            .addComponent(namaTextField)
+                                            .addComponent(dindingTextField)
+                                            .addComponent(atapTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addComponent(classifyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(4, 4, 4))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(83, 83, 83)
+                                        .addComponent(classifiedLabelText)
+                                        .addGap(82, 82, 82)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(hasilText)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addContainerGap(322, Short.MAX_VALUE)
@@ -484,40 +582,91 @@ public class App extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(splitRatioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(numPopulationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(numIterationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(c1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(c2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(targetTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(analyzeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(141, 141, 141)
-                .addComponent(hasilText)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(311, 311, 311)
+                        .addComponent(hasilText))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(namaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pendidikanTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pekerjaanTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(penghasilanTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ptrTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel23))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ventilasiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel24))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pencahayaanTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(kelembabanTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel26))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lantaiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel27))
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dindingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel28))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(atapTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel29))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(classifyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(classifiedLabelText, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(220, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(Hasil1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(16, Short.MAX_VALUE)))
+                    .addContainerGap(244, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Analysis", jPanel1);
@@ -535,28 +684,12 @@ public class App extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void loadData(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadData
-        // TODO add your handling code here:
-        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView()
-                .getDefaultDirectory());
-        if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            try {
-                File selectedFile = jfc.getSelectedFile();
-                ExcelHandler handler = new ExcelHandler();
-                this.data = handler.read(selectedFile, 1);
-                this.setDataTable(this.data);
-            } catch (IOException ex) {
-                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_loadData
     
     private void setDataTable(List<entity.Data> data) {
         DefaultTableModel model = (DefaultTableModel)this
@@ -585,38 +718,68 @@ public class App extends javax.swing.JFrame {
         this.jTabbedPane1.setSelectedIndex(2);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void classifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classifyButtonActionPerformed
+        // TODO add your handling code here:
+        if (this.analyzed && this.trainedC45 != null &&
+            this.trainedPSOC45 != null) {
+            String nama = this.namaTextField.getText();
+            int pendidikan = Integer.parseInt(this.pendidikanTextField
+                .getText());
+            int pekerjaan = Integer.parseInt(this.pekerjaanTextField.getText());
+            int penghasilan = Integer.parseInt(this.penghasilanTextField
+                .getText());
+            int ptr = Integer.parseInt(this.ptrTextField.getText());
+            int ventilasi = Integer.parseInt(this.ventilasiTextField.getText());
+            int pencahayaan = Integer.parseInt(this.pencahayaanTextField.getText());
+            int kelembaban = Integer.parseInt(this.kelembabanTextField.getText());
+            int atap = Integer.parseInt(this.atapTextField.getText());
+            int dinding = Integer.parseInt(this.dindingTextField.getText());
+            int lantai = Integer.parseInt(this.lantaiTextField.getText());
+
+            Data data = new Data(nama, pendidikan, pekerjaan, penghasilan, ptr,
+                ventilasi, pencahayaan, kelembaban, atap, dinding, lantai);
+            int predicted = this.trainedPSOC45.predictLabel(data);
+            this.classifiedLabelText.setText("ISPA: " + predicted);
+
+        } else {
+
+        }
+    }//GEN-LAST:event_classifyButtonActionPerformed
+
     private void analyzeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analyzeButtonActionPerformed
-        SplitValidator splitValidator = 
-                new SplitValidator((ArrayList)this.data);
+        SplitValidator splitValidator =
+        new SplitValidator((ArrayList)this.data);
         Map<String, List<entity.Data>> split = splitValidator
-                .stratifiedSplit(Double
-                        .parseDouble(splitRatioTextField.getText()));
+        .stratifiedSplit(Double
+            .parseDouble(splitRatioTextField.getText()));
         List<entity.Data> trainData = split.get("train");
         List<entity.Data> testData = split.get("test");
-        
+
         C45 clf = new C45();
         clf.fit(trainData);
+        this.trainedC45 = clf;
         double c45Score = clf.score(testData);
-        
+
         ConfusionMatrix cm = new ConfusionMatrix();
         for (entity.Data row : testData) {
             int predicted = clf.predictLabel(row);
             int actual = row.getIspa();
             cm.update(Integer.toString(actual), Integer.toString(predicted));
         }
-        
+
         double c1 = Double.parseDouble(c1TextField.getText());
         double c2 = Double.parseDouble(c2TextField.getText());
         int numPopulation = Integer.parseInt(numPopulationTextField.getText());
         int numIteration = Integer.parseInt(numIterationTextField.getText());
         double target = Double.parseDouble(targetTextField.getText());
-        
-        PSO pso = new PSO(entity.Data.FEATURES.length, numPopulation, 
-                numIteration, c1, c2, target);
+
+        PSO pso = new PSO(entity.Data.FEATURES.length, numPopulation,
+            numIteration, c1, c2, target);
         Particle bestParticle = pso.exec(trainData, testData);
         double c45PsoScore = bestParticle.getBest();
-        
+
         C45 optimizedClf = bestParticle.getClf();
+        this.trainedPSOC45 = optimizedClf;
         ConfusionMatrix cmPso = new ConfusionMatrix();
         for (entity.Data row : testData) {
             int predicted = optimizedClf.predictLabel(row);
@@ -624,34 +787,52 @@ public class App extends javax.swing.JFrame {
             System.out.println(actual + "::" + predicted);
             cmPso.update(Integer.toString(actual), Integer.toString(predicted));
         }
-        
+
         DefaultTableModel accuracyModel = (DefaultTableModel)this
-                                            .accuracyTable.getModel();
+        .accuracyTable.getModel();
         accuracyModel.setRowCount(1);
         accuracyModel.setColumnCount(2);
         accuracyModel.setValueAt((c45Score * 100) + "%", 0, 0);
         accuracyModel.setValueAt((c45PsoScore * 100) + "%", 0, 1);
-        
+
         Map<String, Map<String, Integer>> c45Mat = cm.getMatrix();
         DefaultTableModel cmC45Model = (DefaultTableModel)this
-                                        .cm_C45.getModel();
+        .cm_C45.getModel();
         cmC45Model.setRowCount(2);
         cmC45Model.setColumnCount(3);
         cmC45Model.setValueAt(c45Mat.get("1").get("1"), 0, 1);
         cmC45Model.setValueAt(c45Mat.get("1").get("2"), 0, 2);
         cmC45Model.setValueAt(c45Mat.get("2").get("1"), 1, 1);
         cmC45Model.setValueAt(c45Mat.get("2").get("2"), 1, 2);
-        
+
         Map<String, Map<String, Integer>> psoC45Mat = cmPso.getMatrix();
         DefaultTableModel cmPsoC45Model = (DefaultTableModel)this
-                                        .cm_PSOC45.getModel();
+        .cm_PSOC45.getModel();
         cmPsoC45Model.setRowCount(2);
         cmPsoC45Model.setColumnCount(3);
         cmPsoC45Model.setValueAt(psoC45Mat.get("1").get("1"), 0, 1);
         cmPsoC45Model.setValueAt(psoC45Mat.get("1").get("2"), 0, 2);
         cmPsoC45Model.setValueAt(psoC45Mat.get("2").get("1"), 1, 1);
         cmPsoC45Model.setValueAt(psoC45Mat.get("2").get("2"), 1, 2);
+
+        this.analyzed = true;
     }//GEN-LAST:event_analyzeButtonActionPerformed
+
+    private void loadData(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadData
+        // TODO add your handling code here:
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView()
+            .getDefaultDirectory());
+        if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            try {
+                File selectedFile = jfc.getSelectedFile();
+                ExcelHandler handler = new ExcelHandler();
+                this.data = handler.read(selectedFile, 1);
+                this.setDataTable(this.data);
+            } catch (IOException ex) {
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_loadData
 
     private void dev() {
 //        ExcelHandler exl = new ExcelHandler();
@@ -744,12 +925,16 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JPanel Hasil1;
     private javax.swing.JTable accuracyTable;
     private javax.swing.JButton analyzeButton;
+    private javax.swing.JTextField atapTextField;
     private javax.swing.JPanel buton_data;
     private javax.swing.JTextField c1TextField;
     private javax.swing.JTextField c2TextField;
+    private javax.swing.JLabel classifiedLabelText;
+    private javax.swing.JButton classifyButton;
     private javax.swing.JTable cm_C45;
     private javax.swing.JTable cm_PSOC45;
     private javax.swing.JPanel dashboard;
+    private javax.swing.JTextField dindingTextField;
     private javax.swing.JLabel hasilText;
     private javax.swing.JPanel home;
     private javax.swing.JButton jButton1;
@@ -760,9 +945,20 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -777,18 +973,26 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField kelembabanTextField;
+    private javax.swing.JTextField lantaiTextField;
+    private javax.swing.JTextField namaTextField;
     private javax.swing.JTextField numIterationTextField;
     private javax.swing.JTextField numPopulationTextField;
     private javax.swing.JTable nutritionalStatusTable;
+    private javax.swing.JTextField pekerjaanTextField;
+    private javax.swing.JTextField pencahayaanTextField;
+    private javax.swing.JTextField pendidikanTextField;
+    private javax.swing.JTextField penghasilanTextField;
+    private javax.swing.JTextField ptrTextField;
     private javax.swing.JTextField splitRatioTextField;
     private javax.swing.JPanel tabel_data;
     private javax.swing.JTextField targetTextField;
     private javax.swing.JPanel tittle_data;
+    private javax.swing.JTextField ventilasiTextField;
     // End of variables declaration//GEN-END:variables
 }

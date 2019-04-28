@@ -47,6 +47,23 @@ public class Data {
         this.ispa = ispa;
     }
     
+    public Data(String nama, int pendidikan, int pekerjaan, int penghasilan, 
+            int ptr, int ventilasi, int pencahayaan, int kelembaban, 
+            int atap, int dinding, int lantai) {
+        this.nama = nama;
+        this.pendidikan = pendidikan;
+        this.pekerjaan = pekerjaan;
+        this.penghasilan = penghasilan;
+        this.ptr = ptr;
+        this.ventilasi = ventilasi;
+        this.pencahayaan = pencahayaan;
+        this.kelembaban = kelembaban;
+        this.atap = atap;
+        this.dinding = dinding;
+        this.lantai = lantai;
+        this.ispa = -1;
+    }
+    
     public String getNama() {
         return nama;
     }
