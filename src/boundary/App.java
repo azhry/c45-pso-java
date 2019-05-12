@@ -7,6 +7,7 @@ package boundary;
 
 import control.C45;
 import control.ConfusionMatrix;
+import control.Encoder;
 import control.ExcelHandler;
 import control.PSO;
 import entity.Particle;
@@ -27,7 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  *
- * @author acer
+ * @author Azhary Arliansyah
  */
 public class App extends javax.swing.JFrame {
     
@@ -101,56 +102,32 @@ public class App extends javax.swing.JFrame {
         jScrollPane8 = new javax.swing.JScrollPane();
         cm_PSOC45 = new javax.swing.JTable();
         hasilText = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        classifyButton = new javax.swing.JButton();
-        lantaiTextField = new javax.swing.JTextField();
-        kelembabanTextField = new javax.swing.JTextField();
-        pencahayaanTextField = new javax.swing.JTextField();
-        ventilasiTextField = new javax.swing.JTextField();
-        ptrTextField = new javax.swing.JTextField();
-        penghasilanTextField = new javax.swing.JTextField();
-        pekerjaanTextField = new javax.swing.JTextField();
-        pendidikanTextField = new javax.swing.JTextField();
-        namaTextField = new javax.swing.JTextField();
-        dindingTextField = new javax.swing.JTextField();
-        atapTextField = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        classifiedLabelText = new javax.swing.JLabel();
         classification = new javax.swing.JPanel();
         hasilText1 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        classifyButton1 = new javax.swing.JButton();
-        namaTextField1 = new javax.swing.JTextField();
-        classifiedLabelText1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        classifyButton = new javax.swing.JButton();
+        namaTextField = new javax.swing.JTextField();
+        classifiedLabelText = new javax.swing.JLabel();
+        pekerjaanComboBox = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        pendidikanComboBox = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        penghasilanComboBox = new javax.swing.JComboBox<>();
         jLabel49 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        ventilasiComboBox = new javax.swing.JComboBox<>();
         jLabel50 = new javax.swing.JLabel();
-        jComboBox5 = new javax.swing.JComboBox<>();
+        kelembabanComboBox = new javax.swing.JComboBox<>();
         jLabel51 = new javax.swing.JLabel();
-        jComboBox6 = new javax.swing.JComboBox<>();
+        lantaiComboBox = new javax.swing.JComboBox<>();
         jLabel52 = new javax.swing.JLabel();
-        jComboBox7 = new javax.swing.JComboBox<>();
+        atapComboBox = new javax.swing.JComboBox<>();
         jLabel53 = new javax.swing.JLabel();
-        jComboBox8 = new javax.swing.JComboBox<>();
+        ptrComboBox = new javax.swing.JComboBox<>();
         jLabel54 = new javax.swing.JLabel();
-        jComboBox9 = new javax.swing.JComboBox<>();
+        pencahayaanComboBox = new javax.swing.JComboBox<>();
         jLabel55 = new javax.swing.JLabel();
-        jComboBox10 = new javax.swing.JComboBox<>();
+        dindingComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(723, 850));
@@ -498,40 +475,6 @@ public class App extends javax.swing.JFrame {
 
         Hasil1.add(jPanel10, java.awt.BorderLayout.CENTER);
 
-        jLabel16.setText("Nama");
-
-        classifyButton.setText("Classify");
-        classifyButton.setPreferredSize(null);
-        classifyButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                classifyButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel17.setText("Pendidikan");
-        jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-
-        jLabel20.setText("Pekerjaan");
-
-        jLabel22.setText("Penghasilan");
-
-        jLabel23.setText("PTR");
-
-        jLabel24.setText("Ventilasi");
-
-        jLabel25.setText("Pencahayaan");
-
-        jLabel26.setText("Kelembaban");
-
-        jLabel27.setText("Lantai");
-
-        jLabel28.setText("Dinding");
-
-        jLabel29.setText("Atap");
-
-        classifiedLabelText.setText("LABEL");
-        classifiedLabelText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
         javax.swing.GroupLayout analysisLayout = new javax.swing.GroupLayout(analysis);
         analysis.setLayout(analysisLayout);
         analysisLayout.setHorizontalGroup(
@@ -558,45 +501,7 @@ public class App extends javax.swing.JFrame {
                             .addComponent(targetTextField))
                         .addGap(1577, 1577, 1577))
                     .addGroup(analysisLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel25)
-                            .addGroup(analysisLayout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jLabel22)
-                                    .addComponent(jLabel26)
-                                    .addComponent(jLabel27)
-                                    .addComponent(jLabel28)
-                                    .addComponent(jLabel29)
-                                    .addComponent(jLabel17)
-                                    .addComponent(jLabel20)
-                                    .addComponent(jLabel23)
-                                    .addComponent(jLabel24))
-                                .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(analysisLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(lantaiTextField)
-                                            .addComponent(kelembabanTextField)
-                                            .addComponent(pencahayaanTextField)
-                                            .addComponent(ventilasiTextField)
-                                            .addComponent(ptrTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(penghasilanTextField)
-                                            .addComponent(pekerjaanTextField)
-                                            .addComponent(pendidikanTextField)
-                                            .addComponent(namaTextField)
-                                            .addComponent(dindingTextField)
-                                            .addComponent(atapTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, analysisLayout.createSequentialGroup()
-                                                .addComponent(classifyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(4, 4, 4))))
-                                    .addGroup(analysisLayout.createSequentialGroup()
-                                        .addGap(83, 83, 83)
-                                        .addComponent(classifiedLabelText)
-                                        .addGap(82, 82, 82)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(274, 274, 274)
                         .addComponent(hasilText)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -634,60 +539,9 @@ public class App extends javax.swing.JFrame {
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(analyzeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(analysisLayout.createSequentialGroup()
-                        .addGap(311, 311, 311)
-                        .addComponent(hasilText))
-                    .addGroup(analysisLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(namaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(pendidikanTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(pekerjaanTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel20))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(penghasilanTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel22))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ptrTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel23))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ventilasiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel24))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(pencahayaanTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel25))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(kelembabanTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel26))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lantaiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel27))
-                        .addGap(4, 4, 4)
-                        .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dindingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel28))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(atapTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel29))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(classifyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(classifiedLabelText, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addGap(311, 311, 311)
+                .addComponent(hasilText)
+                .addContainerGap(263, Short.MAX_VALUE))
             .addGroup(analysisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(analysisLayout.createSequentialGroup()
                     .addContainerGap()
@@ -701,59 +555,59 @@ public class App extends javax.swing.JFrame {
 
         jLabel38.setText("Nama");
 
-        classifyButton1.setText("Proses");
-        classifyButton1.addActionListener(new java.awt.event.ActionListener() {
+        classifyButton.setText("Proses");
+        classifyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                classifyButton1ActionPerformed(evt);
+                classifyButtonActionPerformed(evt);
             }
         });
 
-        classifiedLabelText1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        classifiedLabelText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        classifiedLabelText1.setText("LABEL");
-        classifiedLabelText1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        classifiedLabelText1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        classifiedLabelText1.setPreferredSize(new java.awt.Dimension(31, 16));
+        classifiedLabelText.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        classifiedLabelText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        classifiedLabelText.setText("LABEL");
+        classifiedLabelText.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        classifiedLabelText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        classifiedLabelText.setPreferredSize(new java.awt.Dimension(31, 16));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pekerjaanComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tidak Bekerja", "Petani", "Buruh", "Swasta", "PNS", "Lain-lain" }));
 
         jLabel2.setText("Pekerjaan");
 
         jLabel7.setText("Pendidikan");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pendidikanComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tidak Sekolah / Tidak Tamat SD", "Tamat SD", "Tamat SMP", "Tamat SMA", "Perguruan Tinggi" }));
 
         jLabel8.setText("Penghasilan");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        penghasilanComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kurang Dari Rp. 250.000", "Rp. 250.000 - Rp. 500.000", "Lebih Dari Rp. 500.000" }));
 
         jLabel49.setText("Ventilasi");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ventilasiComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Baik (≥ 10%)", "Tidak Baik (< 10%)" }));
 
         jLabel50.setText("Kelembaban");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        kelembabanComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Baik (40 - 70%)", "Tidak Baik (< 40% atau > 70%)" }));
 
         jLabel51.setText("Lantai");
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lantaiComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Keramik / Ubin", "Semen", "Tanah" }));
 
         jLabel52.setText("Atap");
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        atapComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Genting", "Asbes / Seng" }));
 
         jLabel53.setText("PTR");
 
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ptrComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ya", "Tidak" }));
 
         jLabel54.setText("Pencahayaan");
 
-        jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pencahayaanComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Baik (60 - 120 Lux)", "Tidak Baik (< 60 Lux atau > 120 Lux)" }));
 
         jLabel55.setText("Dinding");
 
-        jComboBox10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        dindingComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Permanen / Batu", "Semi Permanen / Setengah Batu", "Kayu / Bambu / Papan" }));
 
         javax.swing.GroupLayout classificationLayout = new javax.swing.GroupLayout(classification);
         classification.setLayout(classificationLayout);
@@ -766,32 +620,32 @@ public class App extends javax.swing.JFrame {
             .addGroup(classificationLayout.createSequentialGroup()
                 .addGap(79, 79, 79)
                 .addGroup(classificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(classifyButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(classifyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel38)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(namaTextField1)
-                    .addComponent(jComboBox8, 0, 214, Short.MAX_VALUE)
+                    .addComponent(pekerjaanComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(namaTextField)
+                    .addComponent(ptrComboBox, 0, 214, Short.MAX_VALUE)
                     .addComponent(jLabel54)
-                    .addComponent(jComboBox9, 0, 214, Short.MAX_VALUE)
+                    .addComponent(pencahayaanComboBox, 0, 214, Short.MAX_VALUE)
                     .addComponent(jLabel51)
-                    .addComponent(jComboBox6, 0, 214, Short.MAX_VALUE)
+                    .addComponent(lantaiComboBox, 0, 214, Short.MAX_VALUE)
                     .addComponent(jLabel52)
-                    .addComponent(jComboBox7, 0, 214, Short.MAX_VALUE)
+                    .addComponent(atapComboBox, 0, 214, Short.MAX_VALUE)
                     .addComponent(jLabel53))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(classificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox2, 0, 214, Short.MAX_VALUE)
+                    .addComponent(pendidikanComboBox, 0, 214, Short.MAX_VALUE)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBox3, 0, 214, Short.MAX_VALUE)
+                    .addComponent(penghasilanComboBox, 0, 214, Short.MAX_VALUE)
                     .addComponent(jLabel49)
-                    .addComponent(jComboBox4, 0, 214, Short.MAX_VALUE)
+                    .addComponent(ventilasiComboBox, 0, 214, Short.MAX_VALUE)
                     .addComponent(jLabel50)
-                    .addComponent(jComboBox5, 0, 214, Short.MAX_VALUE)
+                    .addComponent(kelembabanComboBox, 0, 214, Short.MAX_VALUE)
                     .addComponent(jLabel55)
-                    .addComponent(jComboBox10, 0, 214, Short.MAX_VALUE)
-                    .addComponent(classifiedLabelText1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(dindingComboBox, 0, 214, Short.MAX_VALUE)
+                    .addComponent(classifiedLabelText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(79, 79, 79))
         );
         classificationLayout.setVerticalGroup(
@@ -810,55 +664,55 @@ public class App extends javax.swing.JFrame {
                                     .addGroup(classificationLayout.createSequentialGroup()
                                         .addComponent(jLabel38)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(namaTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(namaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(classificationLayout.createSequentialGroup()
                                         .addComponent(jLabel7)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(pendidikanComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(classificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(classificationLayout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(pekerjaanComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(classificationLayout.createSequentialGroup()
                                         .addComponent(jLabel8)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(penghasilanComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(21, 21, 21)
                                 .addComponent(jLabel53)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ptrComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel54)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(pencahayaanComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(classificationLayout.createSequentialGroup()
                                 .addComponent(jLabel49)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ventilasiComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel50)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(kelembabanComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel55)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(dindingComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(classificationLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel51)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lantaiComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(classificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(classificationLayout.createSequentialGroup()
                         .addComponent(jLabel52)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(atapComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(classifyButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(classifiedLabelText1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(classifyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(classifiedLabelText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(318, 318, 318))
         );
 
@@ -910,34 +764,6 @@ public class App extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.jTabbedPane1.setSelectedIndex(2);
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void classifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classifyButtonActionPerformed
-        // TODO add your handling code here:
-        if (this.analyzed && this.trainedC45 != null &&
-            this.trainedPSOC45 != null) {
-            String nama = this.namaTextField.getText();
-            int pendidikan = Integer.parseInt(this.pendidikanTextField
-                .getText());
-            int pekerjaan = Integer.parseInt(this.pekerjaanTextField.getText());
-            int penghasilan = Integer.parseInt(this.penghasilanTextField
-                .getText());
-            int ptr = Integer.parseInt(this.ptrTextField.getText());
-            int ventilasi = Integer.parseInt(this.ventilasiTextField.getText());
-            int pencahayaan = Integer.parseInt(this.pencahayaanTextField.getText());
-            int kelembaban = Integer.parseInt(this.kelembabanTextField.getText());
-            int atap = Integer.parseInt(this.atapTextField.getText());
-            int dinding = Integer.parseInt(this.dindingTextField.getText());
-            int lantai = Integer.parseInt(this.lantaiTextField.getText());
-
-            Data data = new Data(nama, pendidikan, pekerjaan, penghasilan, ptr,
-                ventilasi, pencahayaan, kelembaban, atap, dinding, lantai);
-            int predicted = this.trainedPSOC45.predictLabel(data);
-            this.classifiedLabelText.setText("ISPA: " + predicted);
-
-        } else {
-
-        }
-    }//GEN-LAST:event_classifyButtonActionPerformed
 
     private void analyzeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analyzeButtonActionPerformed
         SplitValidator splitValidator =
@@ -1027,9 +853,40 @@ public class App extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loadData
 
-    private void classifyButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classifyButton1ActionPerformed
+    private void classifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classifyButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_classifyButton1ActionPerformed
+        if (this.analyzed && this.trainedC45 != null &&
+            this.trainedPSOC45 != null) {
+            String nama = this.namaTextField.getText();
+            int pendidikan = Encoder.pendidikan(this.pendidikanComboBox
+                    .getSelectedItem().toString());
+            int pekerjaan = Encoder.pekerjaan(this.pekerjaanComboBox
+                    .getSelectedItem().toString());
+            int penghasilan = Encoder.penghasilan(this.penghasilanComboBox
+                    .getSelectedItem().toString());
+            int ptr = Encoder.ptr(this.ptrComboBox
+                    .getSelectedItem().toString());
+            int ventilasi = Encoder.ventilasi(this.ventilasiComboBox
+                    .getSelectedItem().toString());
+            int pencahayaan = Encoder.pencahayaan(this.pencahayaanComboBox
+                    .getSelectedItem().toString());
+            int kelembaban = Encoder.kelembaban(this.kelembabanComboBox
+                    .getSelectedItem().toString());
+            int atap = Encoder.atap(this.atapComboBox
+                    .getSelectedItem().toString());
+            int dinding = Encoder.dinding(this.dindingComboBox
+                    .getSelectedItem().toString());
+            int lantai = Encoder.lantai(this.lantaiComboBox
+                    .getSelectedItem().toString());
+
+            Data data = new Data(nama, pendidikan, pekerjaan, penghasilan, ptr,
+                ventilasi, pencahayaan, kelembaban, atap, dinding, lantai);
+            int predicted = this.trainedPSOC45.predictLabel(data);
+            this.classifiedLabelText.setText("ISPA: " + predicted);
+        } else {
+
+        }
+    }//GEN-LAST:event_classifyButtonActionPerformed
 
     private void dev() {
 //        ExcelHandler exl = new ExcelHandler();
@@ -1123,55 +980,32 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JTable accuracyTable;
     private javax.swing.JPanel analysis;
     private javax.swing.JButton analyzeButton;
-    private javax.swing.JTextField atapTextField;
+    private javax.swing.JComboBox<String> atapComboBox;
     private javax.swing.JPanel buton_data;
     private javax.swing.JTextField c1TextField;
     private javax.swing.JTextField c2TextField;
     private javax.swing.JPanel classification;
     private javax.swing.JLabel classifiedLabelText;
-    private javax.swing.JLabel classifiedLabelText1;
     private javax.swing.JButton classifyButton;
-    private javax.swing.JButton classifyButton1;
     private javax.swing.JTable cm_C45;
     private javax.swing.JTable cm_PSOC45;
     private javax.swing.JPanel dashboard;
-    private javax.swing.JTextField dindingTextField;
+    private javax.swing.JComboBox<String> dindingComboBox;
     private javax.swing.JLabel hasilText;
     private javax.swing.JLabel hasilText1;
     private javax.swing.JPanel home;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox10;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JComboBox<String> jComboBox7;
-    private javax.swing.JComboBox<String> jComboBox8;
-    private javax.swing.JComboBox<String> jComboBox9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
@@ -1200,22 +1034,21 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField kelembabanTextField;
-    private javax.swing.JTextField lantaiTextField;
+    private javax.swing.JComboBox<String> kelembabanComboBox;
+    private javax.swing.JComboBox<String> lantaiComboBox;
     private javax.swing.JTextField namaTextField;
-    private javax.swing.JTextField namaTextField1;
     private javax.swing.JTextField numIterationTextField;
     private javax.swing.JTextField numPopulationTextField;
     private javax.swing.JTable nutritionalStatusTable;
-    private javax.swing.JTextField pekerjaanTextField;
-    private javax.swing.JTextField pencahayaanTextField;
-    private javax.swing.JTextField pendidikanTextField;
-    private javax.swing.JTextField penghasilanTextField;
-    private javax.swing.JTextField ptrTextField;
+    private javax.swing.JComboBox<String> pekerjaanComboBox;
+    private javax.swing.JComboBox<String> pencahayaanComboBox;
+    private javax.swing.JComboBox<String> pendidikanComboBox;
+    private javax.swing.JComboBox<String> penghasilanComboBox;
+    private javax.swing.JComboBox<String> ptrComboBox;
     private javax.swing.JTextField splitRatioTextField;
     private javax.swing.JPanel tabel_data;
     private javax.swing.JTextField targetTextField;
     private javax.swing.JPanel tittle_data;
-    private javax.swing.JTextField ventilasiTextField;
+    private javax.swing.JComboBox<String> ventilasiComboBox;
     // End of variables declaration//GEN-END:variables
 }
